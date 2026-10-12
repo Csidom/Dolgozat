@@ -83,7 +83,7 @@ namespace Dolgozat
                 if (sofor.IsChecked == true)
                 {
                     osszeg += 2500;
-                    ex += "Sofőr, ";
+                    ex += "+Sofőr, ";
                 }
 
                 if (matrica.IsChecked == true)
@@ -128,7 +128,11 @@ namespace Dolgozat
 
         private bool nameValid()
         {
-            if (nev.Text.Trim().Length == 0 || nev.Text.Trim().Length >= 3)
+            if (nev.Text.Trim().Length == 0)
+            {
+                return false;
+            } 
+            else if (nev.Text.Trim().Length <= 3)
             {
                 return false;
             }
@@ -141,7 +145,15 @@ namespace Dolgozat
         private bool ageValid()
         {
             int age = int.Parse(kor.Text.Trim());
-            if (kor.Text.Trim().Length == 0 || age < 18)
+            if (age == null)
+            {
+                return false;
+            }
+            else if (age < 18)
+            {
+                return false;
+            }
+            else if (age > 100)
             {
                 return false;
             }
@@ -153,7 +165,11 @@ namespace Dolgozat
 
         private bool jogValid()
         {
-            if (jogsi.Text.Trim().Length == 0 || jogsi.Text.Trim().Length < 6)
+            if (jogsi.Text.Trim().Length == 0)
+            {
+                return false;
+            }
+            else if (jogsi.Text.Trim().Length < 6)
             {
                 return false;
             }
@@ -165,7 +181,7 @@ namespace Dolgozat
 
         private bool carValid()
         {
-            if (autovalaszt.SelectedItem.ToString().Length == 0)
+            if (autovalaszt.SelectedItem.ToString().Length == null)
             {
                 return false;
             }
@@ -177,7 +193,11 @@ namespace Dolgozat
         private bool berlesValid()
         {
             int ido = int.Parse(berlesido.Text.Trim());
-            if (berlesido.Text.Trim().Length == 0 || ido > 30)
+            if (ido == null)
+            {
+                return false;
+            }
+            else if (ido > 30)
             {
                 return false;
             }
@@ -189,25 +209,25 @@ namespace Dolgozat
 
         private bool biztositasValid()
         {
-            if (biztositA.IsChecked == false && biztositB.IsChecked == false && biztositC.IsChecked == false)
+            if (biztositA.IsChecked == true || biztositB.IsChecked == true || biztositC.IsChecked == true)
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
 
         private bool fizetesValid()
         {
-            if (fizetA.IsChecked == false && fizetB.IsChecked == false)
+            if (fizetA.IsChecked == true || fizetB.IsChecked == true)
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
 
@@ -215,7 +235,6 @@ namespace Dolgozat
         {
             if (feltetel.IsChecked == false)
             {
-                MessageBox.Show("Fogadd el a vásárlási feltételeket!", "Fatal error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
             else
